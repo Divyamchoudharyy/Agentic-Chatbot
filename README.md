@@ -8,11 +8,11 @@ A basic chatbot built with **LangGraph**, **Groq** and **Streamlit**.
 
 Sidebar controls (LLM, model, API key, use case) and a first reply:
 
-![Chat UI](docs/screenshot-1.png)
+![Chat UI](docs/screenshot-2.png)
 
 Multi-turn memory - the bot remembers the name from the first message:
 
-![Memory demo](docs/screenshot-2.png)
+![Memory demo](docs/screenshot-1.png)
 
 ## How it works
 
