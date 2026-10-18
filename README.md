@@ -4,6 +4,16 @@ A basic chatbot built with **LangGraph**, **Groq** and **Streamlit**.
 
 > This is my **first end-to-end Agentic AI project**. It is intentionally small: one graph, one node, one LLM. The goal was to learn how the pieces (UI, LLM, graph, state) fit together before building more complex agents.
 
+## Demo
+
+Sidebar controls (LLM, model, API key, use case) and a first reply:
+
+![Chat UI](docs/screenshot-1.png)
+
+Multi-turn memory - the bot remembers the name from the first message:
+
+![Memory demo](docs/screenshot-2.png)
+
 ## How it works
 
 The LangGraph workflow is a single-node graph:
