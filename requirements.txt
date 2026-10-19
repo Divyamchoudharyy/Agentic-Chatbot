@@ -1,8 +1,5 @@
-langchain
 langgraph
-langchain-community
 langchain-core
 langchain-groq
-langchain-ollama
+langchain-tavily
 streamlit
-tavily-python 
