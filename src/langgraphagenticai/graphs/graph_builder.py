@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import tools_condition
-
+from src.langgraphagenticai.nodes.ai_news_node import AINewsNode
 from src.langgraphagenticai.states.state import State
 from src.langgraphagenticai.nodes.basic_chatbot_node import BasicChatbotNode
 from src.langgraphagenticai.nodes.chatbot_tools_node import ChatbotToolNode
@@ -33,11 +33,25 @@ class GraphBuilder:
         self.graph_builder.add_conditional_edges("chatbot", tools_condition)
         self.graph_builder.add_edge("tools", "chatbot")
 
+    def ai_news_build_graph(self):
+        """START -> Fetch_News -> Summarize -> Save_Results -> END"""
+        ai_news_node = AINewsNode(self.llm, self.tavily_api_key)
+
+        self.graph_builder.add_node("Fetch_News",ai_news_node.fetch_news)
+        self.graph_builder.add_node("Summarize",ai_news_node.summarize_news)
+        self.graph_builder.add_node("Save_Results",ai_news_node.save_results)
+        self.graph_builder.add_edge(START,"Fetch_News")
+        self.graph_builder.add_edge("Fetch_News" , "Summarize")
+        self.graph_builder.add_edge("Summarize","Save_Results")
+        self.graph_builder.add_edge("Save_Results",END)
+
     def setup_graph(self, usecase: str):
         if usecase == "Basic Chatbot":
             self.basic_chatbot_build_graph()
         elif usecase == "Chatbot with Web":
             self.chatbot_tools_build_graph()
+        elif usecase == "AI News":
+            self.ai_news_build_graph()
         else:
             raise ValueError(f"Unsupported use case: {usecase}")
 

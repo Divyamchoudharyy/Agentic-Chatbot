@@ -2,4 +2,6 @@ langgraph
 langchain-core
 langchain-groq
 langchain-tavily
+tavily-python
 streamlit
+tzdata

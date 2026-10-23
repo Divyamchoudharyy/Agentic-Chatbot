@@ -49,7 +49,9 @@ class LoadStreamLitUI:
                 usecase_options
             )
 
-            if self.user_controls["selected_usecase"] == "Chatbot with Web":
+            usecase = self.user_controls["selected_usecase"]
+
+            if usecase in ("Chatbot with Web", "AI News"):
                 tavily_key = st.text_input(
                     "Tavily API Key",
                     type="password",
@@ -59,5 +61,20 @@ class LoadStreamLitUI:
 
                 if not tavily_key:
                     st.warning("Please enter your Tavily API key to proceed.")
+
+            if usecase == "AI News":
+                self.user_controls["time_frame"] = st.selectbox(
+                    "Select Time Frame",
+                    ["Daily", "Weekly", "Monthly"],
+                    index=0
+                )
+                # st.button is True only on the rerun right after the click
+                self.user_controls["fetch_news_clicked"] = st.button(
+                    "Fetch Latest AI News",
+                    use_container_width=True
+                )
+
+        if self.user_controls["selected_usecase"] == "AI News":
+            st.subheader("AI NEWS EXPLORER")
 
         return self.user_controls

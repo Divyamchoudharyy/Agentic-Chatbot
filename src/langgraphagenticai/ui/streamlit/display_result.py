@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 
@@ -24,6 +26,17 @@ class DisplayResultStreamlit:
     def render_history(self):
         for msg in st.session_state.setdefault("chat_history", []):
             _show(msg)
+
+    def render_news(self, result):
+        st.markdown(result.get("summary", ""))
+        filename = result.get("filename")
+        if filename:
+            st.caption(f"Saved to {filename}")
+            try:
+                with open(filename, encoding="utf-8") as f:
+                    st.download_button("Download .md", f.read(), file_name=os.path.basename(filename))
+            except OSError:
+                pass
 
     def run_and_display(self, usecase, graph, user_message):
         if usecase not in SUPPORTED_USECASES:
